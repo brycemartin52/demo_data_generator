@@ -360,6 +360,7 @@ def get_question_type(col, i, inferred_type):
 def customize_questions(specs):
     st.subheader('Detected question types (override if wrong)')
     for i,s in enumerate(specs):
+        st.divider()
         col1, col2, col3, col4 = st.columns([4,2,4,2])
 
         display_question_name(col1, i, s.text)
@@ -367,6 +368,7 @@ def customize_questions(specs):
         s.inferred_type = get_question_type(col2, i, s.inferred_type)
 
         if s.inferred_type in ('categorical','ranking','multi-label'):
+
             # show options editor
             opts = col3.text_input('Options (semi-colon-separated)', value=';'.join(s.options) if s.options else 'Option1;Option2;Option3', key=f'opts_{i}')
             s.options = [o.strip() for o in opts.split(';') if o.strip()]
