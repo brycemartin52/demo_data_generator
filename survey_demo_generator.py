@@ -138,10 +138,6 @@ def make_default_spec(qid: int, text: str, options: Optional[List[str]] = None) 
     return QuestionSpec(id=str(qid), text=text, inferred_type='categorical', options=opts, probs=probs)
 
 
-# -------------------------
-# Core generator using Gaussian copula for correlated items
-# -------------------------
-
 def build_covariance_matrix(specs: List[QuestionSpec], pairwise_corr: Dict[Tuple[int,int], float]) -> np.ndarray:
     # Build a covariance (correlation) matrix for the latent Gaussian variables.
     n = len(specs)
@@ -465,6 +461,13 @@ def generate_dataset(specs, pairwise_corr, n = 100, seed = None, decay_percent =
 
 
 def run_streamlit_app():
+    st.set_page_config(
+        page_title="My App",
+        page_icon="📊",
+        layout="wide",  # fills the page width
+        initial_sidebar_state="expanded",  # or "collapsed"
+    )
+
     st.title('Survey Demo Data Generator (basic)')
     st.markdown(ST_APP_HEADER)
 
